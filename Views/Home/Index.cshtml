@@ -1,9 +1,131 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model CalculatorASPNet.Models.CalculatorPageViewModel
+@{
+    ViewData["Title"] = "Calculator";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <button>Hi Mohamed 🐲 !</button>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card calc-card border-0 shadow-lg">
+            <div class="card-body">
+                <div class="calc-display mb-3">
+                    <div id="calcExpression" class="calc-expression">@Model.Expression</div>
+                    <div id="calcResult" class="calc-result">@Model.Result</div>
+                    <div id="calcError" class="calc-error" hidden></div>
+                </div>
+
+                <div class="row g-2 calc-keypad" id="calcKeypad">
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-fn w-100" data-key="clear">AC</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-fn w-100" data-key="back">⌫</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-fn w-100" data-key="^">^</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-op w-100" data-key="÷">÷</button>
+                    </div>
+
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="7">7</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="8">8</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="9">9</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-op w-100" data-key="×">×</button>
+                    </div>
+
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="4">4</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="5">5</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="6">6</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-op w-100" data-key="−">−</button>
+                    </div>
+
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="1">1</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="2">2</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key="3">3</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-op w-100" data-key="+">+</button>
+                    </div>
+
+                    <div class="col-6">
+                        <button type="button" class="btn calc-btn w-100" data-key="0">0</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn w-100" data-key=".">.</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-eq w-100" data-key="=">=</button>
+                    </div>
+
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-fn w-100" data-key="sqrt">√</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-fn w-100" data-key="(">(</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-fn w-100" data-key=")">)</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn calc-btn calc-btn-fn w-100" data-key="%">%</button>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <small class="text-secondary">Keyboard supported · pi, e, sqrt(), abs()</small>
+                    <span id="calcStatus" class="badge rounded-pill text-bg-dark status-badge">Ready</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card calc-card border-0 shadow-lg h-100">
+            <div class="card-header calc-card-header d-flex justify-content-between align-items-center">
+                <span class="fw-bold"><i class="bi bi-clock-history me-1"></i>History</span>
+                <button type="button" id="clearHistoryBtn" class="btn btn-sm btn-outline-danger">Clear all</button>
+            </div>
+            <div class="card-body p-0">
+                <div id="historyList" class="history-list">
+                    @if (Model.History.Count == 0)
+                    {
+                        <div id="historyEmpty" class="text-center text-secondary p-4">No calculations yet.</div>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.History)
+                        {
+                            <div class="history-item" data-id="@item.Id">
+                                <div class="history-expression">@item.Expression</div>
+                                <div class="history-result">= @item.Result</div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<form id="antiforgeryForm" class="d-none">
+    @Html.AntiForgeryToken()
+</form>

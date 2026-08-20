@@ -1,6 +1,34 @@
-﻿@{
+@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 class="calc-title">Privacy Policy</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<p class="lead">Calculix stores your calculation history locally in the application database so you can revisit your recent results.</p>
+
+<div class="row g-3 mt-2">
+    <div class="col-md-6">
+        <div class="card calc-card border-0">
+            <div class="card-body">
+                <h5 class="fw-bold">What we store</h5>
+                <ul class="mb-0 text-secondary">
+                    <li>The expressions you evaluate</li>
+                    <li>The results, with a timestamp</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card calc-card border-0">
+            <div class="card-body">
+                <h5 class="fw-bold">What we never collect</h5>
+                <ul class="mb-0 text-secondary">
+                    <li>No accounts, emails or personal data</li>
+                    <li>No cookies, trackers or analytics</li>
+                    <li>Your expressions are never sent to third parties</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p class="text-secondary mt-4 mb-0">You can clear the entire history at any time from the calculator page.</p>

@@ -16,3 +16,7 @@ __pycache__/
 *.class
 .DS_Store
 Thumbs.db
+
+# Runtime artifacts
+TestResults/
+*.trx
